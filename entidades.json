@@ -1,0 +1,38 @@
+[
+  {
+    "nombre": "Fundación ANAR",
+    "causas": ["infancia", "salud"],
+    "ambito": "espana",
+    "proyecto": "Protección de infancia y adolescencia",
+    "web": "https://www.anar.org",
+    "donaciones": "https://www.anar.org/colabora/",
+    "transparencia": "https://www.anar.org/quienes-somos/transparencia/"
+  },
+  {
+    "nombre": "SEO/BirdLife",
+    "causas": ["medioambiente", "educacion"],
+    "ambito": "espana",
+    "proyecto": "Conservación de biodiversidad y educación ambiental",
+    "web": "https://seo.org",
+    "donaciones": "https://seo.org/colabora/",
+    "transparencia": "https://seo.org/transparencia/"
+  },
+  {
+    "nombre": "Fundación Vicente Ferrer",
+    "causas": ["cooperacion", "rural", "educacion"],
+    "ambito": "internacional",
+    "proyecto": "Desarrollo rural y educación en India",
+    "web": "https://fundacionvicenteferrer.org",
+    "donaciones": "https://fundacionvicenteferrer.org/colabora",
+    "transparencia": "https://fundacionvicenteferrer.org/transparencia"
+  },
+  {
+    "nombre": "Médicos Sin Fronteras",
+    "causas": ["salud", "emergencias", "cooperacion"],
+    "ambito": "internacional",
+    "proyecto": "Atención médica en crisis humanitarias",
+    "web": "https://www.msf.es",
+    "donaciones": "https://www.msf.es/colabora",
+    "transparencia": "https://www.msf.es/quienes-somos/transparencia"
+  }
+]
