@@ -1,115 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>DonarIA – Encuentra tu causa</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <style>
-    body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; margin: 0; padding: 2em; color: #333; }
-    header { background: #005a9c; color: white; padding: 1em; text-align: center; }
-    section { margin: 2em 0; background: white; padding: 1.5em; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
-    label { display: block; margin-top: 1em; font-weight: bold; }
-    input, select, textarea { width: 100%; padding: 0.6em; margin-top: 0.5em; border: 1px solid #ccc; border-radius: 4px; }
-    button { margin-top: 1em; padding: 0.8em 1.5em; background: #005a9c; color: white; border: none; border-radius: 4px; cursor: pointer; }
-    .compare-btn { background: #007a3d; margin-top: 1em; }
-    .export-btn { background: #444; margin-left: 1em; }
-    .entity { background: #eef; padding: 1em; margin-bottom: 1em; border-left: 4px solid #005a9c; }
-    .entity a { color: #005a9c; text-decoration: underline; }
-    .assistant { background: #fff8dc; padding: 1em; border-left: 4px solid #ffa500; margin-top: 2em; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1em; }
-    th, td { padding: 0.5em; border: 1px solid #ccc; text-align: left; }
-    th { background: #005a9c; color: white; }
-    .pagination { margin-top: 1em; text-align: center; }
-    .pagination button { margin: 0 0.5em; padding: 0.5em 1em; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DonarIA – Inteligencia Ética para Donar con Impacto</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header>
+    <h1>DonarIA</h1>
+    <p class="subtitulo">Inteligencia Ética para Donar con Impacto</p>
+  </header>
 
-<header>
-  <h1>DonarIA</h1>
-  <p>Tu asistente ético para encontrar causas sociales alineadas con tus valores</p>
-</header>
+  <main>
+    <section id="intro">
+      <p>Explora entidades verificadas del tercer sector. Filtra por causa, ámbito y tipo de impacto. Compara hasta tres entidades antes de decidir.</p>
+    </section>
 
-<section>
-  <h2>1. Cuestionario inicial</h2>
-  <form id="donarForm">
-    <label for="temas">Selecciona tus causas sociales:</label>
-    <select id="temas" multiple>
-      <option value="infancia">Infancia y adolescencia</option>
-      <option value="medioambiente">Medio ambiente</option>
-      <option value="salud">Salud</option>
-      <option value="discapacidad">Discapacidad</option>
-      <option value="cooperacion">Cooperación internacional</option>
-      <option value="educacion">Educación</option>
-      <option value="derechoshumanos">Derechos humanos</option>
-      <option value="genero">Igualdad de género</option>
-      <option value="inclusion">Inclusión social</option>
-      <option value="cultura">Cultura</option>
-      <option value="investigacion">Investigación científica</option>
-      <option value="animal">Protección animal</option>
-      <option value="rural">Desarrollo rural</option>
-      <option value="emergencias">Emergencias humanitarias</option>
-      <option value="mayores">Personas mayores</option>
-      <option value="migracion">Migración y refugio</option>
-      <option value="pobreza">Lucha contra la pobreza</option>
-      <option value="voluntariado">Voluntariado</option>
-      <option value="economia">Economía social</option>
-    </select>
+    <section id="filtros">
+      <h2>Filtrar entidades</h2>
+      <label for="causa">Causa:</label>
+      <select id="causa">
+        <option value="">Todas</option>
+        <option value="infancia">Infancia</option>
+        <option value="salud">Salud</option>
+        <option value="medioambiente">Medioambiente</option>
+        <option value="educacion">Educación</option>
+        <option value="inclusion">Inclusión</option>
+        <option value="cooperacion">Cooperación</option>
+        <option value="discapacidad">Discapacidad</option>
+        <option value="derechoshumanos">Derechos Humanos</option>
+      </select>
 
-    <label for="ubicacion">¿Prefieres causas en España, internacionales o ambas?</label>
-    <select id="ubicacion">
-      <option value="espana">España</option>
-      <option value="internacional">Internacionales</option>
-      <option value="ambas">Ambas</option>
-    </select>
+      <label for="ambito">Ámbito:</label>
+      <select id="ambito">
+        <option value="">Todos</option>
+        <option value="espana">España</option>
+        <option value="internacional">Internacional</option>
+      </select>
 
-    <label for="tipo">¿Eres persona física o jurídica?</label>
-    <select id="tipo">
-      <option value="fisica">Física</option>
-      <option value="juridica">Jurídica</option>
-    </select>
+      <label for="tipo">Tipo:</label>
+      <select id="tipo">
+        <option value="">Todos</option>
+        <option value="fundacion">Fundación</option>
+        <option value="asociacion">Asociación</option>
+      </select>
 
-    <button type="submit">Buscar entidades</button>
-  </form>
-</section>
+      <button onclick="filtrarEntidades()">Buscar</button>
+    </section>
 
-<section>
-  <h2>2. Entidades sugeridas</h2>
-  <input type="text" id="buscador" placeholder="Buscar por nombre o causa..." />
-  <div class="results" id="resultados">
-    <p><em>Los resultados aparecerán aquí tras completar el formulario.</em></p>
-  </div>
-  <div class="pagination" id="paginador"></div>
-  <button class="compare-btn" onclick="compararEntidades()">Comparar seleccionadas</button>
-  <button class="export-btn" onclick="exportarPDF()">Exportar PDF</button>
-</section>
+    <section id="resultados">
+      <h2>Entidades sugeridas</h2>
+      <div id="entidades"></div>
+      <p id="mensaje-error" class="error"></p>
+    </section>
 
-<section>
-  <h2>3. Asistente IA</h2>
-  <div class="assistant" id="asistente">
-    <p><strong>DonarIA dice:</strong> Completa el formulario y filtra por tus causas. Puedes comparar hasta tres entidades antes de decidir.</p>
-  </div>
-</section>
+    <section id="comparador">
+      <h2>Comparador ético</h2>
+      <div id="comparacion"></div>
+    </section>
 
-<section>
-  <h2>4. Solicitud de inclusión para ONGs</h2>
-  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfEjemploDeFormulario/viewform?embedded=true" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
-</section>
+    <section id="asistente">
+      <h2>¿Necesitas ayuda?</h2>
+      <p>Puedes preguntar al asistente IA sobre causas, desgravación fiscal o cómo elegir una entidad.</p>
+      <!-- Espacio para iframe o bloque IA embebido -->
+    </section>
+  </main>
 
-<section>
-  <h2>5. Seguridad y transparencia</h2>
-  <ul>
-    <li>Solo se muestran entidades activas y verificadas con utilidad pública.</li>
-    <li>Incluye enlaces oficiales y apartados de transparencia y donaciones.</li>
-    <li>No se almacenan datos personales.</li>
-    <li>La desgravación fiscal se aplica según normativa común.</li>
-    <li>Todos los enlaces son revisados manualmente antes de ser publicados.</li>
-  </ul>
-</section>
+  <footer>
+    <p>Proyecto desarrollado por <strong>SostIA</strong> con asistencia técnica de Microsoft Copilot. Licencia MIT. Fuente conectada: JSONBin.io</p>
+  </footer>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
