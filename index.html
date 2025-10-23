@@ -4,20 +4,8 @@
   <meta charset="UTF-8">
   <title>DonarIA – Encuentra tu causa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; margin: 0; padding: 2em; color: #333; }
-    header { background: #005a9c; color: white; padding: 1em; text-align: center; }
-    h1 { margin: 0; }
-    section { margin: 2em 0; background: white; padding: 1.5em; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
-    label { display: block; margin-top: 1em; font-weight: bold; }
-    input, select, textarea { width: 100%; padding: 0.6em; margin-top: 0.5em; border: 1px solid #ccc; border-radius: 4px; }
-    button { margin-top: 1em; padding: 0.8em 1.5em; background: #005a9c; color: white; border: none; border-radius: 4px; cursor: pointer; }
-    .results { margin-top: 1em; }
-    .entity { background: #eef; padding: 1em; margin-bottom: 1em; border-left: 4px solid #005a9c; }
-    .entity a { color: #005a9c; text-decoration: underline; }
-    .compare-btn { background: #007a3d; margin-top: 1em; }
-    .assistant { background: #fff8dc; padding: 1em; border-left: 4px solid #ffa500; margin-top: 2em; }
-  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
@@ -29,12 +17,32 @@
 <section>
   <h2>1. Cuestionario inicial</h2>
   <form id="donarForm">
-    <label for="temas">¿Qué temas sociales te interesan?</label>
-    <textarea id="temas" placeholder="Ej: infancia, medio ambiente, salud..."></textarea>
+    <label for="temas">Selecciona tus causas sociales:</label>
+    <select id="temas" multiple>
+      <option value="infancia">Infancia y adolescencia</option>
+      <option value="medioambiente">Medio ambiente</option>
+      <option value="salud">Salud</option>
+      <option value="discapacidad">Discapacidad</option>
+      <option value="cooperacion">Cooperación internacional</option>
+      <option value="educacion">Educación</option>
+      <option value="derechoshumanos">Derechos humanos</option>
+      <option value="genero">Igualdad de género</option>
+      <option value="inclusion">Inclusión social</option>
+      <option value="cultura">Cultura</option>
+      <option value="investigacion">Investigación científica</option>
+      <option value="animal">Protección animal</option>
+      <option value="rural">Desarrollo rural</option>
+      <option value="emergencias">Emergencias humanitarias</option>
+      <option value="mayores">Personas mayores</option>
+      <option value="migracion">Migración y refugio</option>
+      <option value="pobreza">Lucha contra la pobreza</option>
+      <option value="voluntariado">Voluntariado</option>
+      <option value="economia">Economía social</option>
+    </select>
 
-    <label for="ubicacion">¿Prefieres causas locales o internacionales?</label>
+    <label for="ubicacion">¿Prefieres causas en España, internacionales o ambas?</label>
     <select id="ubicacion">
-      <option value="local">Locales</option>
+      <option value="espana">España</option>
       <option value="internacional">Internacionales</option>
       <option value="ambas">Ambas</option>
     </select>
@@ -51,16 +59,18 @@
 
 <section>
   <h2>2. Entidades sugeridas</h2>
+  <input type="text" id="buscador" placeholder="Buscar por nombre o causa..." />
   <div class="results" id="resultados">
     <p><em>Los resultados aparecerán aquí tras completar el formulario.</em></p>
   </div>
+  <div class="pagination" id="paginador"></div>
   <button class="compare-btn" onclick="compararEntidades()">Comparar seleccionadas</button>
 </section>
 
 <section>
   <h2>3. Asistente IA</h2>
-  <div class="assistant" id="asistente">
-    <p><strong>DonarIA dice:</strong> Estoy aquí para ayudarte a encontrar causas alineadas con tus valores. Completa el formulario y revisa las entidades sugeridas. Puedes comparar hasta tres opciones antes de decidir.</p>
+  <div class="assistant">
+    <p><strong>DonarIA dice:</strong> Estoy aquí para ayudarte a encontrar causas alineadas con tus valores. Puedes buscar, filtrar y comparar hasta tres entidades antes de decidir.</p>
   </div>
 </section>
 
@@ -75,64 +85,42 @@
   </ul>
 </section>
 
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="script.js"></script>
 <script>
-document.getElementById('donarForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const temas = document.getElementById('temas').value.toLowerCase();
-  const ubicacion = document.getElementById('ubicacion').value;
-  const tipo = document.getElementById('tipo').value;
-
-  const entidades = [
-    {
-      nombre: "Fundación Vicente Ferrer",
-      proyecto: "Desarrollo rural y educación en India",
-      enlace: "https://fundacionvicenteferrer.org",
-      donaciones: "https://fundacionvicenteferrer.org/colabora",
-      transparencia: "https://fundacionvicenteferrer.org/transparencia"
-    },
-    {
-      nombre: "Fundación ANAR",
-      proyecto: "Protección de infancia y adolescencia en España",
-      enlace: "https://www.anar.org",
-      donaciones: "https://www.anar.org/colabora/",
-      transparencia: "https://www.anar.org/transparencia/"
-    },
-    {
-      nombre: "SEO/BirdLife",
-      proyecto: "Conservación de biodiversidad y educación ambiental",
-      enlace: "https://seo.org",
-      donaciones: "https://seo.org/colabora/",
-      transparencia: "https://seo.org/transparencia/"
-    }
-  ];
-
-  const resultados = document.getElementById('resultados');
-  resultados.innerHTML = "<p>Selecciona hasta tres entidades para comparar:</p>";
-
-  entidades.forEach(entidad => {
-    resultados.innerHTML += `
-      <div class="entity">
-        <strong>${entidad.nombre}</strong><br>
-        Proyecto: ${entidad.proyecto}<br>
-        <a href="${entidad.enlace}" target="_blank">Web oficial</a> | 
-        <a href="${entidad.transparencia}" target="_blank">Transparencia</a> | 
-        <a href="${entidad.donaciones}" target="_blank">Donaciones</a>
-        <br><input type="checkbox" name="comparar" value="${entidad.nombre}"> Comparar
-      </div>
-    `;
+  new Choices('#temas', {
+    removeItemButton: true,
+    searchEnabled: true,
+    placeholderValue: 'Selecciona causas sociales',
+    searchPlaceholderValue: 'Buscar...'
   });
-});
 
-function compararEntidades() {
-  const seleccionadas = Array.from(document.querySelectorAll('input[name="comparar"]:checked'));
-  if (seleccionadas.length === 0 || seleccionadas.length > 3) {
-    alert("Selecciona entre 1 y 3 entidades para comparar.");
-    return;
-  }
+  document.getElementById('buscador').addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    entidades = entidades.filter(e =>
+      e.nombre.toLowerCase().includes(query) ||
+      (e.causas && e.causas.some(c => c.includes(query)))
+    );
+    paginaActual = 1;
+    mostrarEntidades();
+  });
 
-  const nombres = seleccionadas.map(e => e.value);
-  alert("Comparando: " + nombres.join(", ") + ". Visita sus webs para decidir con criterio.");
-}
+  document.getElementById('donarForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    fetch('entidades.json')
+      .then(res => res.json())
+      .then(data => {
+        const ubicacion = document.getElementById('ubicacion').value;
+        const causasSeleccionadas = Array.from(document.getElementById('temas').selectedOptions).map(o => o.value);
+        entidades = data.filter(ent =>
+          (ubicacion === "ambas" || ent.ambito === ubicacion) &&
+          (causasSeleccionadas.length === 0 || causasSeleccionadas.some(c => ent.causas.includes(c)))
+        );
+        paginaActual = 1;
+        seleccionadas = [];
+        mostrarEntidades();
+      });
+  });
 </script>
 
 </body>
