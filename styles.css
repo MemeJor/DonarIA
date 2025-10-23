@@ -1,83 +1,129 @@
+/* Tipografía y estructura base */
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: #f4f4f4;
   margin: 0;
-  padding: 2em;
+  padding: 0;
+  background-color: #f4f6f8;
   color: #333;
 }
+
 header {
-  background: #005a9c;
+  background-color: #005f73;
   color: white;
-  padding: 1em;
+  padding: 1.5em;
   text-align: center;
 }
-section {
-  margin: 2em 0;
-  background: white;
-  padding: 1.5em;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+
+.subtitulo {
+  font-size: 1.1em;
+  margin-top: 0.5em;
+  color: #d9f0ff;
 }
+
+main {
+  padding: 2em;
+  max-width: 1000px;
+  margin: auto;
+}
+
+section {
+  margin-bottom: 2em;
+}
+
+h2 {
+  color: #005f73;
+  border-bottom: 2px solid #94d2bd;
+  padding-bottom: 0.3em;
+}
+
 label {
   display: block;
   margin-top: 1em;
   font-weight: bold;
 }
-input, select, textarea {
+
+select {
   width: 100%;
-  padding: 0.6em;
-  margin-top: 0.5em;
+  padding: 0.5em;
+  margin-top: 0.3em;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
 button {
   margin-top: 1em;
-  padding: 0.8em 1.5em;
-  background: #005a9c;
+  padding: 0.7em 1.2em;
+  background-color: #0a9396;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
-.compare-btn {
-  background: #007a3d;
-  margin-top: 1em;
+
+button:hover {
+  background-color: #007f7f;
 }
-.entity {
-  background: #eef;
+
+/* Resultados */
+.entidad {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-left: 5px solid #005f73;
   padding: 1em;
   margin-bottom: 1em;
-  border-left: 4px solid #005a9c;
+  border-radius: 4px;
 }
-.entity a {
-  color: #005a9c;
+
+.entidad h3 {
+  margin-top: 0;
+  color: #005f73;
+}
+
+.entidad a {
+  color: #0a9396;
+  text-decoration: none;
+}
+
+.entidad a:hover {
   text-decoration: underline;
 }
-.assistant {
-  background: #fff8dc;
+
+/* Comparador */
+.comparada {
+  background-color: #e0f7fa;
+  border: 1px solid #94d2bd;
   padding: 1em;
-  border-left: 4px solid #ffa500;
-  margin-top: 2em;
+  margin-bottom: 1em;
+  border-radius: 4px;
 }
-table {
-  width: 100%;
-  border-collapse: collapse;
+
+/* Mensajes de error */
+.error {
+  color: #ae2012;
+  font-weight: bold;
   margin-top: 1em;
 }
-th, td {
-  padding: 0.5em;
-  border: 1px solid #ccc;
-  text-align: left;
-}
-th {
-  background: #005a9c;
+
+/* Footer */
+footer {
+  background-color: #005f73;
   color: white;
-}
-.pagination {
-  margin-top: 1em;
   text-align: center;
+  padding: 1em;
+  font-size: 0.9em;
 }
-.pagination button {
-  margin: 0 0.5em;
-  padding: 0.5em 1em;
+
+/* Responsive */
+@media (max-width: 600px) {
+  main {
+    padding: 1em;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  select {
+    font-size: 1em;
+  }
 }
